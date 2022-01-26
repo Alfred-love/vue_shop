@@ -58,7 +58,7 @@
             resetLoginForm() {
                 this.$refs.loginFormRef.resetFields()
             },
-            //登录功能函数
+            //登录功能函数 validate表单方法，用于处理前端验证
             login() {
                 this.$refs.loginFormRef.validate(async valit => {
                    if(!valit) return
