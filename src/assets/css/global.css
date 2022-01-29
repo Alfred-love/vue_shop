@@ -15,3 +15,7 @@ html, body, #app {
 .el-pagination {
     margin-top: 15px;
 }
+/* 控制 Cascader 级联选择器宽度，一定要记得配置，不然会占满全屏 */
+.el-cascader-menu {
+    height: 200px;   
+}

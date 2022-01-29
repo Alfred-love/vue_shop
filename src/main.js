@@ -6,10 +6,14 @@ import './plugins/element.js'
 import './assets/fonts/iconfont.css'
 // 导入全局样式文件
 import './assets/css/global.css'
+//导入表格文件
+import TreeTable from 'vue-table-with-tree-grid'
 //导入请求文件
 import './request.js'
 
 Vue.config.productionTip = false
+
+Vue.component('tree-table', TreeTable)
 
 new Vue({
   router,
