@@ -110,9 +110,10 @@
             title="编辑提交分类"
             :visible.sync="addEditDialogVisible"
             width="50%"
+            @close="addEditDialogClosed"
         >
             <el-form 
-                ref="editForm" 
+                ref="editFormRef" 
                 :model="editForm" 
                 label-width="80px"
                 :rules="editFormRules"
@@ -289,7 +290,11 @@ export default {
                 this.$message.success('修改数据分类成功')
             })
         },
-        //根据Id删除分类信息并
+        //监听编辑对话框的关闭事件
+        addEditDialogClosed() {
+            this.$refs.editFormRef.resetFields()
+        },
+        //根据Id删除分类信息并提交
         async removeCateById(id, name) {
             //弹框询问用户是否删除数据
             const confirmResult = await this.$confirm(`此操作将永久删除${name}分类, 是否继续?`, '提示', {
