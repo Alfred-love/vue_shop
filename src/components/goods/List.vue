@@ -172,8 +172,8 @@ export default {
         editDialogClosed() {
             this.$refs.editFormRef.resetFields()
         },
-        //修改商品信息并提交
-        // editGoodsInfo() {
+        //修改商品信息并提交，接口失效
+        editGoodsInfo() {
         //     this.$refs.editFormRef.validate(async valid => {
         //         if(!valid) return
         //         //发起修改商品信息的请求
@@ -191,13 +191,13 @@ export default {
         //             return this.$message.error('更新商品信息失败')
         //         }
         //         //1.关闭对话框
-        //         this.editDialogVisible = false
+                this.editDialogVisible = false
         //         //2.刷新数据列表
         //         this.getGoodsList()
         //         //3.提示修改成功
         //         this.$message.success('更新商品信息成功')
         //     })
-        // },
+        },
     },
     mounted() {
         this.getGoodsList()
