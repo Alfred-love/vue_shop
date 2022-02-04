@@ -19,9 +19,9 @@
         <!-- 展开列 -->
         <el-table-column type="expand">
           <template v-slot="scope">
-            <el-row 
-              v-for="(item1, i1) in scope.row.children" 
-              :key="item1.id" 
+            <el-row
+              v-for="(item1, i1) in scope.row.children"
+              :key="item1.id"
               :class="['bdbottom', i1 === 0 ? 'bdtop' : '', 'vcenter']"
             >
               <!-- 渲染一级权限 -->
@@ -31,13 +31,13 @@
               </el-col>
               <!-- 渲染二级和三级权限 -->
               <el-col :span="19">
-                <el-row 
-                  v-for="(item2, i2) in item1.children" 
-                  :key="item2.id" 
+                <el-row
+                  v-for="(item2, i2) in item1.children"
+                  :key="item2.id"
                   :class="[i2 === 0 ? '' : 'bdtop', 'vcenter']"
                 >
                   <el-col :span="6">
-                    <el-tag 
+                    <el-tag
                       type="success"
                       closable
                       @close="removeRightById(scope.row, item2.id)"
@@ -46,8 +46,8 @@
                     <i class="el-icon-caret-right"></i>
                   </el-col>
                   <el-col :span="18">
-                    <el-tag 
-                      v-for="item3 in item2.children" 
+                    <el-tag
+                      v-for="item3 in item2.children"
                       :key="item3.id"
                       type="warning"
                       closable
@@ -66,24 +66,24 @@
         <el-table-column label="角色描述" prop="roleDesc"></el-table-column>
         <el-table-column label="操作" width="300px">
             <template v-slot="scope">
-                <el-button 
-                  type="primary" 
-                  icon="el-icon-edit" 
-                  size="mini" 
+                <el-button
+                  type="primary"
+                  icon="el-icon-edit"
+                  size="mini"
                   @click="showEditDialog(scope.row.id)"
                 >
                 编辑</el-button>
-                <el-button 
-                  type="danger" 
-                  icon="el-icon-delete" 
-                  size="mini" 
+                <el-button
+                  type="danger"
+                  icon="el-icon-delete"
+                  size="mini"
                   @click="removeroleById(scope.row.id, scope.row.roleName)"
                 >
                 删除</el-button>
-                <el-button 
-                  type="warning" 
-                  icon="el-icon-setting" 
-                  size="mini" 
+                <el-button
+                  type="warning"
+                  icon="el-icon-setting"
+                  size="mini"
                   @click="showSetRightDialog(scope.row)"
                 >
                 分配权限</el-button>
@@ -99,9 +99,9 @@
         @close = "addDialogClosed"
     >
         <!-- 内容主体区域 -->
-        <el-form  
-            :model="addForm" 
-            label-width="100px" 
+        <el-form
+            :model="addForm"
+            label-width="100px"
             :rules="addFormRules"
             ref="addFormRef"
         >
@@ -148,9 +148,9 @@
       <!-- 树形控件 show-checkbox选中效果，node-key：标签框选中之后的值，
       id是每一个rightsList属性子对象及其后代对象里面的属性
       default-checked-keys：属性值为一个数组，来确定默认选中的标签节点框,，注意：数组里面放的是标签框对应的Id值 -->
-      <el-tree 
-        :data="rightsList" 
-        :props="treeProps" 
+      <el-tree
+        :data="rightsList"
+        :props="treeProps"
         show-checkbox
         node-key="id"
         default-expand-all
@@ -170,55 +170,55 @@ export default {
   name: 'Roles',
   data() {
     return {
-      roleList: [], //所有角色列表数据
-      addForm: {roleName: '', roleDesc: ''}, //添加的角色数据
-      addDialogVisible: false, //控制添加角色对话框的显示与隐藏
+      roleList: [], // 所有角色列表数据
+      addForm: { roleName: '', roleDesc: '' }, // 添加的角色数据
+      addDialogVisible: false, // 控制添加角色对话框的显示与隐藏
       addFormRules: {
         roleName: [
-          {required: true, message: '请输入角色名称', trigger: 'blur'},
-          {min: 2, max: 10, message: '角色名称的长度在2~10个字符之间', trigger: 'blur'}
+          { required: true, message: '请输入角色名称', trigger: 'blur' },
+          { min: 2, max: 10, message: '角色名称的长度在2~10个字符之间', trigger: 'blur' }
         ],
         roleDesc: [
-          {required: true, message: '请输入角色描述', trigger: 'blur'},
-          {min: 2, max: 10, message: '角色描述的长度在2~10个字符之间', trigger: 'blur'}
-        ],
-      }, //添加表单的验证规则对象
-      editDialogVisible: false, //控制修改角色对话框的显示与隐藏
+          { required: true, message: '请输入角色描述', trigger: 'blur' },
+          { min: 2, max: 10, message: '角色描述的长度在2~10个字符之间', trigger: 'blur' }
+        ]
+      }, // 添加表单的验证规则对象
+      editDialogVisible: false, // 控制修改角色对话框的显示与隐藏
       editFormRules: {
         roleName: [
-          {required: true, message: '请输入角色名称', trigger: 'blur'},
-          {min: 2, max: 10, message: '角色名称的长度在2~10个字符之间', trigger: 'blur'}
+          { required: true, message: '请输入角色名称', trigger: 'blur' },
+          { min: 2, max: 10, message: '角色名称的长度在2~10个字符之间', trigger: 'blur' }
         ],
         roleDesc: [
-          {required: true, message: '请输入角色描述', trigger: 'blur'},
-          {min: 2, max: 10, message: '角色描述的长度在2~10个字符之间', trigger: 'blur'}
-        ],
-      }, //修改表单的验证规则对象
-      editForm: {}, //查询到的用户信息对象
-      setRightDialogVisible: false, //控制分配权限对话框的显示与隐藏
-      rightsList: [], //所有权限的数据
+          { required: true, message: '请输入角色描述', trigger: 'blur' },
+          { min: 2, max: 10, message: '角色描述的长度在2~10个字符之间', trigger: 'blur' }
+        ]
+      }, // 修改表单的验证规则对象
+      editForm: {}, // 查询到的用户信息对象
+      setRightDialogVisible: false, // 控制分配权限对话框的显示与隐藏
+      rightsList: [], // 所有权限的数据
       treeProps: {
         label: 'authName',
         children: 'children'
-      }, //树形控件的属性绑定对象, authName（标签）children（子元素）都是rightsList数据的属性
-      defkeys: [], //默认选中的节点Id值数组
-      roleId: '', //当前即将分配权限的角色id
+      }, // 树形控件的属性绑定对象, authName（标签）children（子元素）都是rightsList数据的属性
+      defkeys: [], // 默认选中的节点Id值数组
+      roleId: '' // 当前即将分配权限的角色id
     }
   },
   methods: {
-    //获取角色列表数据
+    // 获取角色列表数据
     async getRolesList() {
-      const {data: res} = await this.$http.get('roles')
+      const { data: res } = await this.$http.get('roles')
       if (res.meta.status !== 200) {
         this.$message.error('获取角色列表失败')
       }
       this.roleList = res.data
     },
-    //添加角色数据
+    // 添加角色数据
     addRole() {
       this.$refs.addFormRef.validate(async valid => {
         if (!valid) return
-        const {data: res} = await this.$http.post('roles', this.addForm)
+        const { data: res } = await this.$http.post('roles', this.addForm)
         if (res.meta.status !== 201) {
           return this.message.error('添加失败')
         }
@@ -227,24 +227,24 @@ export default {
         this.getRolesList()
       })
     },
-    //监听添加角色对话框关闭事件
+    // 监听添加角色对话框关闭事件
     addDialogClosed() {
       this.$refs.addFormRef.resetFields()
     },
-    //根据Id展示编辑角色的对话框
+    // 根据Id展示编辑角色的对话框
     async showEditDialog(id) {
-        const {data: res} = await this.$http.get('roles/' + id)
-        if (res.meta.status !== 200) {
-            return this.$message.error('查询角色信息失败')
-        }
-        this.editForm = res.data
-        this.editDialogVisible = true
+      const { data: res } = await this.$http.get('roles/' + id)
+      if (res.meta.status !== 200) {
+        return this.$message.error('查询角色信息失败')
+      }
+      this.editForm = res.data
+      this.editDialogVisible = true
     },
-    //修改角色数据
+    // 修改角色数据
     editRoleInfo() {
       this.$refs.editFormRef.validate(async valid => {
-        if(!valid) return
-        const {data: res} = await this.$http.put('roles/' + this.editForm.roleId, {roleName: this.editForm.roleName, roleDesc: this.editForm.roleDesc})
+        if (!valid) return
+        const { data: res } = await this.$http.put('roles/' + this.editForm.roleId, { roleName: this.editForm.roleName, roleDesc: this.editForm.roleDesc })
         if (res.meta.status !== 200) {
           this.$message.error('更新用户信息失败')
         }
@@ -253,85 +253,85 @@ export default {
         this.$message.success('更新用户信息成功')
       })
     },
-    //监听修改用户对话框的关闭事件
+    // 监听修改用户对话框的关闭事件
     editDialogClosed() {
       this.$refs.editFormRef.resetFields()
     },
-    //根据Id删除用户信息
+    // 根据Id删除用户信息
     async removeroleById(id, roleName) {
-        //弹框询问用户是否删除数据
-        const confirmResult = await this.$confirm(`此操作将永久删除名为${roleName}的角色, 是否继续?`, '提示', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
-            type: 'warning'
-        }).catch(err => err)
+      // 弹框询问用户是否删除数据
+      const confirmResult = await this.$confirm(`此操作将永久删除名为${roleName}的角色, 是否继续?`, '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).catch(err => err)
 
-        //如果用户确认删除，则 confirmResult 返回值为字符串 confirm
-        //如果用户取消了删除，则 confirmResult 返回值为字符串 cancel
-        if (confirmResult !== 'confirm') {
-            return this.$message.info('已取消删除')
-        }
-        const {data: res} = await this.$http.delete('roles/' + id)
-        if (res.meta.status !== 200) {
-            return this.$message.error('删除角色失败!')
-        }
-        this.$message.success('删除角色成功!')
-        this.getRolesList()
+      // 如果用户确认删除，则 confirmResult 返回值为字符串 confirm
+      // 如果用户取消了删除，则 confirmResult 返回值为字符串 cancel
+      if (confirmResult !== 'confirm') {
+        return this.$message.info('已取消删除')
+      }
+      const { data: res } = await this.$http.delete('roles/' + id)
+      if (res.meta.status !== 200) {
+        return this.$message.error('删除角色失败!')
+      }
+      this.$message.success('删除角色成功!')
+      this.getRolesList()
     },
-    //根据Id删除对应的权限
+    // 根据Id删除对应的权限
     async removeRightById(role, rightId) {
       const confirmResult = await this.$confirm('此操作将永久删除该权限, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).catch(err => err)
-      if (confirmResult !== "confirm") {
+      if (confirmResult !== 'confirm') {
         return this.$message.info('已取消删除')
       }
-      const {data: res} = await this.$http.delete(`roles/${role.id}/rights/${rightId}`)
+      const { data: res } = await this.$http.delete(`roles/${role.id}/rights/${rightId}`)
       if (res.meta.status !== 200) {
-          return this.$message.error('删除权限失败!')
+        return this.$message.error('删除权限失败!')
       }
       this.$message.success('删除权限成功')
       // this.getRolesList()
-      //只修改传进来的角色权限 children属性里面就包含权限 这里就是浅拷贝，不懂去c站我的收藏
+      // 只修改传进来的角色权限 children属性里面就包含权限 这里就是浅拷贝，不懂去c站我的收藏
       role.children = res.data
     },
-    //展示分配权限的对话框 role拿到一行数据，也就是主管角色的所有数据，详见页面
+    // 展示分配权限的对话框 role拿到一行数据，也就是主管角色的所有数据，详见页面
     async showSetRightDialog(role) {
       this.roleId = role.id
-      const {data: res} = await this.$http.get('rights/tree')
+      const { data: res } = await this.$http.get('rights/tree')
       if (res.meta.status !== 200) {
         return this.$message.error('获取权限数据失败')
       }
       this.rightsList = res.data
       // console.log(this.rightsList)
       console.log(role)
-      //递归获取三级节点的Id
+      // 递归获取三级节点的Id
       this.getLeafkeys(role, this.defkeys)
       this.setRightDialogVisible = true
     },
-    //通过递归的形式，获取角色下所有三级权限的id，并保存到defkeys数组中
+    // 通过递归的形式，获取角色下所有三级权限的id，并保存到defkeys数组中
     getLeafkeys(node, arr) {
-      //如果当前node节点不包含children属性，则是三级节点
+      // 如果当前node节点不包含children属性，则是三级节点
       if (!node.children) {
         return arr.push(node.id)
       }
       node.children.forEach(item => this.getLeafkeys(item, arr))
     },
-    //监听分配权限对话框的关闭事件
+    // 监听分配权限对话框的关闭事件
     setRightDialogClosed() {
       this.defkeys = []
     },
-    //监听分配权限对话框的确定关闭事件 
-    //getCheckedKeys函数和getHalfCheckedKeys函数是获取树形控件选中和半选中标签的id所组成的数组，详见官网。
+    // 监听分配权限对话框的确定关闭事件
+    // getCheckedKeys函数和getHalfCheckedKeys函数是获取树形控件选中和半选中标签的id所组成的数组，详见官网。
     async allotRights() {
       const keys = [
-        ...this.$refs.treeRef.getCheckedKeys(), 
+        ...this.$refs.treeRef.getCheckedKeys(),
         ...this.$refs.treeRef.getHalfCheckedKeys()
       ]
       const rids = keys.join()
-      const {data: res} = await this.$http.post(`roles/${this.roleId}/rights`, {rids})
+      const { data: res } = await this.$http.post(`roles/${this.roleId}/rights`, { rids })
       if (res.meta.status !== 200) {
         return this.$message.error('分配权限失败')
       }
@@ -340,10 +340,10 @@ export default {
       this.setRightDialogVisible = false
     }
   },
-  //数据代理后，请求获取角色列表数据
+  // 数据代理后，请求获取角色列表数据
   created() {
     this.getRolesList()
-  },
+  }
 }
 </script>
 

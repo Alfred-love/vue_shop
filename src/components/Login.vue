@@ -6,9 +6,9 @@
                 <img src="../assets/logo.png" alt="">
             </div>
             <!-- 登录表单区域 :model="loginForm"-->
-            <el-form 
-                label-width="0px" 
-                class="login_form" 
+            <el-form
+                label-width="0px"
+                class="login_form"
                 :model="loginForm"
                 :rules="loginFormRules"
                 ref="loginFormRef"
@@ -32,54 +32,54 @@
 </template>
 
 <script>
-    export default {
-        data() {
-            return {
-                //登录表单的数据绑定对象
-                loginForm: {
-                    username: 'admin',
-                    password: '123456'
-                },
-                //登录表单的验证规则对象
-                loginFormRules: {
-                    username: [
-                        { required: true, message: '请输入登录名称', trigger: 'blur' },
-                        { min: 3, max: 10, message: '长度在 3 到 10 个字符', trigger: 'blur' }
-                    ],
-                    password: [
-                        { required: true, message: '请输入登录密码', trigger: 'blur' },
-                        { min: 6, max: 15, message: '长度在 6 到 15 个字符', trigger: 'blur' }
-                    ],
-                }
-            }
-        },
-        methods: {
-            //重置登录表单
-            resetLoginForm() {
-                this.$refs.loginFormRef.resetFields()
-            },
-            //登录功能函数 validate表单方法，用于处理前端验证
-            login() {
-                this.$refs.loginFormRef.validate(async valit => {
-                   if(!valit) return
-                   const {data: res} = await this.$http.post('login', this.loginForm)
-                   if (res.meta.status === 200) {
-                       this.$message({
-                           message: '登录成功',
-                           type: 'success'
-                       })
-                   } else {
-                       this.$message({
-                            message: '登录失败',
-                            type: 'error'
-                       })
-                   }
-                   window.sessionStorage.setItem('token', res.data.token)
-                   this.$router.push('/home')
-                })
-            }
-        },
+export default {
+  data() {
+    return {
+      // 登录表单的数据绑定对象
+      loginForm: {
+        username: 'admin',
+        password: '123456'
+      },
+      // 登录表单的验证规则对象
+      loginFormRules: {
+        username: [
+          { required: true, message: '请输入登录名称', trigger: 'blur' },
+          { min: 3, max: 10, message: '长度在 3 到 10 个字符', trigger: 'blur' }
+        ],
+        password: [
+          { required: true, message: '请输入登录密码', trigger: 'blur' },
+          { min: 6, max: 15, message: '长度在 6 到 15 个字符', trigger: 'blur' }
+        ]
+      }
     }
+  },
+  methods: {
+    // 重置登录表单
+    resetLoginForm() {
+      this.$refs.loginFormRef.resetFields()
+    },
+    // 登录功能函数 validate表单方法，用于处理前端验证
+    login() {
+      this.$refs.loginFormRef.validate(async valit => {
+        if (!valit) return
+        const { data: res } = await this.$http.post('login', this.loginForm)
+        if (res.meta.status === 200) {
+          this.$message({
+            message: '登录成功',
+            type: 'success'
+          })
+        } else {
+          this.$message({
+            message: '登录失败',
+            type: 'error'
+          })
+        }
+        window.sessionStorage.setItem('token', res.data.token)
+        this.$router.push('/home')
+      })
+    }
+  }
+}
 </script>
 
 <style lang="less" scoped>

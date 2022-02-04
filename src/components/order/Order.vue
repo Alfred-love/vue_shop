@@ -30,22 +30,22 @@
                  <el-table-column label="下单时间" prop="create_time" width="170px"></el-table-column>
                  <el-table-column label="操作" width="150px">
                      <template>
-                         <el-button 
-                            type="primary" 
-                            icon="el-icon-edit" 
+                         <el-button
+                            type="primary"
+                            icon="el-icon-edit"
                             size="mini"
                             @click="showBox"
                          >
                          </el-button>
-                         <el-button 
-                            type="success" 
-                            icon="el-icon-location" 
+                         <el-button
+                            type="success"
+                            icon="el-icon-location"
                             size="mini"
                             @click="showProgressBox"
                          >
                          </el-button>
                      </template>
-                 </el-table-column>        
+                 </el-table-column>
              </el-table>
              <!-- 分页区域 -->
             <el-pagination
@@ -65,9 +65,9 @@
             width="50%"
             @close="addressDialogClosed"
         >
-            <el-form 
-                ref="addressFormRef" 
-                :model="addressForm" 
+            <el-form
+                ref="addressFormRef"
+                :model="addressForm"
                 label-width="100px"
                 :rules="addressFormRules"
             >
@@ -110,133 +110,133 @@
 <script>
 import cityData from './citydata.js'
 export default {
-    data() {
-        return {
-            queryInfo: {
-                query: '',
-                pagenum: 1,
-                pagesize: 10
-            },
-            total: 0,
-            orderlist: [],
-            addressVisible: false,
-            addressForm: {
-                address1: [],
-                address2: ''
-            },
-            addressFormRules: {
-                address1: [{ required: true, message: '请选择省市区县', trigger: 'blur' }],
-                address2: [{ required: true, message: '请输入详细地址', trigger: 'blur' }],
-            },
-            cityData,
-            ProgressVisible: false,
-            progressInfo: [
-                {
-                    "time": "2018-05-10 09:39:00",
-                    "ftime": "2018-05-10 09:39:00",
-                    "context": "已签收,感谢使用顺丰,期待再次为您服务",
-                    "location": ""
-                },
-                {
-                    "time": "2018-05-10 08:23:00",
-                    "ftime": "2018-05-10 08:23:00",
-                    "context": "[北京市]北京海淀育新小区营业点派件员 顺丰速运 95338正在为您派件",
-                    "location": ""
-                },
-                {
-                    "time": "2018-05-10 07:32:00",
-                    "ftime": "2018-05-10 07:32:00",
-                    "context": "快件到达 [北京海淀育新小区营业点]",
-                    "location": ""
-                },
-                {
-                    "time": "2018-05-10 02:03:00",
-                    "ftime": "2018-05-10 02:03:00",
-                    "context": "快件在[北京顺义集散中心]已装车,准备发往 [北京海淀育新小区营业点]",
-                    "location": ""
-                },
-                {
-                    "time": "2018-05-09 23:05:00",
-                    "ftime": "2018-05-09 23:05:00",
-                    "context": "快件到达 [北京顺义集散中心]",
-                    "location": ""
-                },
-                {
-                    "time": "2018-05-09 21:21:00",
-                    "ftime": "2018-05-09 21:21:00",
-                    "context": "快件在[北京宝胜营业点]已装车,准备发往 [北京顺义集散中心]",
-                    "location": ""
-                },
-                {
-                    "time": "2018-05-09 13:07:00",
-                    "ftime": "2018-05-09 13:07:00",
-                    "context": "顺丰速运 已收取快件",
-                    "location": ""
-                },
-                {
-                    "time": "2018-05-09 12:25:03",
-                    "ftime": "2018-05-09 12:25:03",
-                    "context": "卖家发货",
-                    "location": ""
-                },
-                {
-                    "time": "2018-05-09 12:22:24",
-                    "ftime": "2018-05-09 12:22:24",
-                    "context": "您的订单将由HLA（北京海淀区清河中街店）门店安排发货。",
-                    "location": ""
-                },
-                {
-                    "time": "2018-05-08 21:36:04",
-                    "ftime": "2018-05-08 21:36:04",
-                    "context": "商品已经下单",
-                    "location": ""
-                }
-            ]
+  data() {
+    return {
+      queryInfo: {
+        query: '',
+        pagenum: 1,
+        pagesize: 10
+      },
+      total: 0,
+      orderlist: [],
+      addressVisible: false,
+      addressForm: {
+        address1: [],
+        address2: ''
+      },
+      addressFormRules: {
+        address1: [{ required: true, message: '请选择省市区县', trigger: 'blur' }],
+        address2: [{ required: true, message: '请输入详细地址', trigger: 'blur' }]
+      },
+      cityData,
+      ProgressVisible: false,
+      progressInfo: [
+        {
+          time: '2018-05-10 09:39:00',
+          ftime: '2018-05-10 09:39:00',
+          context: '已签收,感谢使用顺丰,期待再次为您服务',
+          location: ''
+        },
+        {
+          time: '2018-05-10 08:23:00',
+          ftime: '2018-05-10 08:23:00',
+          context: '[北京市]北京海淀育新小区营业点派件员 顺丰速运 95338正在为您派件',
+          location: ''
+        },
+        {
+          time: '2018-05-10 07:32:00',
+          ftime: '2018-05-10 07:32:00',
+          context: '快件到达 [北京海淀育新小区营业点]',
+          location: ''
+        },
+        {
+          time: '2018-05-10 02:03:00',
+          ftime: '2018-05-10 02:03:00',
+          context: '快件在[北京顺义集散中心]已装车,准备发往 [北京海淀育新小区营业点]',
+          location: ''
+        },
+        {
+          time: '2018-05-09 23:05:00',
+          ftime: '2018-05-09 23:05:00',
+          context: '快件到达 [北京顺义集散中心]',
+          location: ''
+        },
+        {
+          time: '2018-05-09 21:21:00',
+          ftime: '2018-05-09 21:21:00',
+          context: '快件在[北京宝胜营业点]已装车,准备发往 [北京顺义集散中心]',
+          location: ''
+        },
+        {
+          time: '2018-05-09 13:07:00',
+          ftime: '2018-05-09 13:07:00',
+          context: '顺丰速运 已收取快件',
+          location: ''
+        },
+        {
+          time: '2018-05-09 12:25:03',
+          ftime: '2018-05-09 12:25:03',
+          context: '卖家发货',
+          location: ''
+        },
+        {
+          time: '2018-05-09 12:22:24',
+          ftime: '2018-05-09 12:22:24',
+          context: '您的订单将由HLA（北京海淀区清河中街店）门店安排发货。',
+          location: ''
+        },
+        {
+          time: '2018-05-08 21:36:04',
+          ftime: '2018-05-08 21:36:04',
+          context: '商品已经下单',
+          location: ''
         }
+      ]
+    }
+  },
+  methods: {
+    // 获取订单列表
+    async getOrderList() {
+      const { data: res } = await this.$http.get('orders', { params: this.queryInfo })
+      if (res.meta.status !== 200) {
+        return this.$message.error('请求订单列表失败！')
+      }
+      console.log(res.data)
+      res.data.goods.forEach(item => {
+        item.create_time = this.dayjs(item.create_time).format('YYYY-MM-DD HH:mm:ss')
+      })
+      this.total = res.data.total
+      this.orderlist = res.data.goods
     },
-    methods: {
-        //获取订单列表
-        async getOrderList() {
-            const {data: res} = await this.$http.get('orders', {params: this.queryInfo})
-            if (res.meta.status !== 200) {
-                return this.$message.error('请求订单列表失败！')
-            }
-            console.log(res.data)
-            res.data.goods.forEach(item => {
-                item.create_time = this.dayjs(item.create_time).format('YYYY-MM-DD HH:mm:ss')
-            })
-            this.total = res.data.total
-            this.orderlist = res.data.goods
-        },
-        handleSizeChange(newSize) {
-            this.queryInfo.pagesize = newSize
-            this.getOrderList()
-        },
-        handleCurrentChange(newPage) {
-            this.queryInfo.pagenum = newPage    
-            this.getOrderList()
-        },
-        //展示修改地址的对话框
-        showBox() {
-            this.addressVisible = true
-        },
-        addressDialogClosed() {
-            this.$refs.addressFormRef.resetFields()
-        },
-        //此处由于接口无效，所以将部分代码注释掉，且将 this.progressInfo 数据写死
-        async showProgressBox() {
-            // const {data: res} = await this.$http.get('/kuaidi/1106975712662')
-            // if (res.meta.status !== 200) {
-            //     return this.$message.error('请求物流进度失败')
-            // }
-            // this.progressInfo = res.data
-            this.ProgressVisible = true
-            console.log(this.progressInfo)
-        }
+    handleSizeChange(newSize) {
+      this.queryInfo.pagesize = newSize
+      this.getOrderList()
     },
-    mounted() {
-        this.getOrderList()
+    handleCurrentChange(newPage) {
+      this.queryInfo.pagenum = newPage
+      this.getOrderList()
     },
+    // 展示修改地址的对话框
+    showBox() {
+      this.addressVisible = true
+    },
+    addressDialogClosed() {
+      this.$refs.addressFormRef.resetFields()
+    },
+    // 此处由于接口无效，所以将部分代码注释掉，且将 this.progressInfo 数据写死
+    async showProgressBox() {
+      // const {data: res} = await this.$http.get('/kuaidi/1106975712662')
+      // if (res.meta.status !== 200) {
+      //     return this.$message.error('请求物流进度失败')
+      // }
+      // this.progressInfo = res.data
+      this.ProgressVisible = true
+      console.log(this.progressInfo)
+    }
+  },
+  mounted() {
+    this.getOrderList()
+  }
 }
 </script>
 
